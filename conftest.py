@@ -1,25 +1,27 @@
 import pytest
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 
 import config.projects.yandex.info
 import config.projects.google.info
 
-from config.projects.google.info import Info
-# from config.projects.yandex.info import Info
+import locators.web.yandex.locators
+import locators.web.google.locators
 
 supported_projects = {
-    'yandex': config.projects.yandex.info.Info,
-    'google': config.projects.google.info.Info
+    'yandex': config.projects.yandex.info.YandexInfo,
+    'google': config.projects.google.info.GoogleInfo
+}
+
+supported_locators = {
+    'yandex': locators.web.yandex.locators.YandexLocators,
+    'google': locators.web.google.locators.GoogleLocators
 }
 
 
 def pytest_addoption(parser):
     parser.addoption('--project_name', action='store', default='yandex',
                      help='Choose project:')
+    parser.addoption('--locator_name', action='store', default='yandex',
+                     help='Choose locators:')
 
 
 @pytest.fixture(scope="session")
@@ -28,11 +30,28 @@ def project(request):
 
     if project_name == "yandex":
         print(f"\nstart yandex for test..")
-        project = config.projects.yandex.info.Info
+        project = config.projects.yandex.info.YandexInfo
     elif project_name == "google":
         print(f"\nstart google for test..")
-        project = config.projects.google.info.Info
+        project = config.projects.google.info.GoogleInfo
     else:
         raise pytest.UsageError(f"--project_name is invalid")
 
     yield project
+
+
+@pytest.fixture(scope="session")
+def locator(request):
+    locator_name = request.config.getoption("locator_name")
+
+    if locator_name == "yandex":
+        print(f"\nstart yandex locators for test..")
+        locator = locators.web.yandex.locators.YandexLocators
+    elif locator_name == "google":
+        print(f"\nstart google locators for test..")
+        locator = locators.web.google.locators.GoogleLocators
+    else:
+        raise pytest.UsageError(f"--locator_name is invalid")
+
+    yield locator
+
