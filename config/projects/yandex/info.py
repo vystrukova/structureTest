@@ -1,4 +1,4 @@
 
-class Info:
+class YandexInfo:
 
     BASE_URL = "https://ya.ru/"
