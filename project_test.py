@@ -1,19 +1,19 @@
-import config.projects.google.info
-import locators.web.google.locators
+from config.projects.google.info import *
+from locators.web.google.locators import *
 
-import config.projects.yandex.info
-import locators.web.yandex.locators
-
-
-class ProjectGoogle:
-
-    def __init__(self):
-        self.google = config.projects.google.info.Google()
-        self.google_test_locators = locators.web.google.GoogleTestLocators()
+from config.projects.yandex.info import *
+from locators.web.yandex.locators import *
 
 
 class ProjectYandex:
 
     def __init__(self):
-        self.yandex = config.projects.yandex.info.Yandex()
-        self.yanex_test_locators = locators.web.yandex.YandexTestLocators()
+        self.project_config = Yandex().yandex_info
+        self.project_test_locators = YandexTestLocators().yandex_locators
+
+
+class ProjectGoogle:
+
+    def __init__(self):
+        self.project_config = Google().google_info
+        self.project_test_locators = GoogleTestLocators().google_locators

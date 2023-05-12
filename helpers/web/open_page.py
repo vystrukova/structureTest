@@ -11,9 +11,9 @@ class OpenPage(BasePage):
         super().__init__(browser, project)
 
     def open_page(self):
-        base_url = self.project.BASE_URL
+        base_url = self.project.project_config.BASE_URL
         self.browser.get(base_url)
 
     def find_logo(self, timeout):
-        locator = self.project.BASE_LOGO
+        locator = self.project.project_test_locators.BASE_LOGO
         return self.wait_for_visible(locator, timeout)
