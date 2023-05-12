@@ -1,10 +1,10 @@
 import pytest
 
-import project_test
+from project_test import *
 
 supported_projects = {
-    'yandex': project_test.ProjectYandex,
-    'google': project_test.ProjectGoogle
+    'yandex': ProjectYandex(),
+    'google': ProjectGoogle()
 }
 
 
@@ -19,12 +19,11 @@ def project(request):
 
     if project_name == "yandex":
         print(f"\nstart yandex for test..")
-        project = project_test.ProjectYandex
+        project = ProjectYandex()
     elif project_name == "google":
         print(f"\nstart google for test..")
-        project = project_test.ProjectGoogle
+        project = ProjectGoogle()
     else:
         raise pytest.UsageError(f"--project_name is invalid")
 
     yield project
-
