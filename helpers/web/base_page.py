@@ -9,10 +9,9 @@ from selenium.common.exceptions import TimeoutException
 
 class BasePage:
 
-    def __init__(self, browser, project, locator):
+    def __init__(self, browser, project):
         self.browser = browser
         self.project = project
-        self.locator = locator
 
     def return_url(self):
         return self.browser.current_url
